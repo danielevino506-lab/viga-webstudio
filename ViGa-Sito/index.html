@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViGa Web Studio | Daniele Vino & Andrea Gambino - Creazione Siti Web</title>
+  <meta name="description" content="ViGa Web Studio di Daniele Vino e Andrea Gambino. Creiamo siti web professionali, e-commerce ad alte prestazioni e applicazioni digitali su misura.">
+
+  <!-- ========================================== -->
+  <!-- FAVICON E META TAG SOCIAL (OPEN GRAPH) -->
+  <!-- ========================================== -->
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <meta property="og:title" content="ViGa Web Studio | Daniele Vino & Andrea Gambino">
+  <meta property="og:description" content="Creiamo siti web professionali, e-commerce ad alte prestazioni e applicazioni digitali su misura.">
+  <meta property="og:image" content="https://www.viga-webstudio.it/og-image.jpg"> <!-- Sostituisci con URL reale della tua immagine copertina -->
+  <meta property="og:url" content="https://www.viga-webstudio.it/">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#070D1E',
+              card: '#0D1730',
+              border: '#1B2A52',
+              blue: '#0066FF',
+              cyan: '#00D2FF',
+              accent: '#38BDF8',
+              muted: '#8A99B5'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-fast': 'float 3.5s ease-in-out infinite',
+            'glow-spin': 'spinSlow 20s linear infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.06)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            spinSlow: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #070D1E;
+      color: #E2E8F0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #00D2FF 0%, #0066FF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bg-gradient-brand {
+      background: linear-gradient(135deg, #0066FF 0%, #00D2FF 100%);
+    }
+    .glass-nav {
+      background: rgba(7, 13, 30, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .glass-card {
+      background: rgba(13, 23, 48, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 210, 255, 0.12);
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 210, 255, 0.35);
+      box-shadow: 0 10px 35px -10px rgba(0, 102, 255, 0.25);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070D1E;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1B2A52;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0066FF;
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    
+    /* FAQ Accordion Hide Marker */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+
+    /* ANIMAZIONI SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    /* ANIMAZIONE 3D TASTO INVIO */
+    .submit-btn-wrapper {
+      perspective: 900px;
+    }
+    .btn-fold {
+      animation: btnFoldShape 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @keyframes btnFoldShape {
+      0% {
+        transform: rotateX(0deg) scale(1);
+        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+      100% {
+        transform: rotateX(55deg) scale(0.75);
+        clip-path: polygon(14% 0%, 86% 0%, 100% 100%, 0% 100%);
+        opacity: 0;
+      }
+    }
+    .plane-takeoff {
+      animation: planeTrajectory 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes planeTrajectory {
+      0% {
+        transform: translate(-50%, -50%) scale(0.3) rotate(-10deg);
+        opacity: 0;
+      }
+      20% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translate(calc(-50% - 15px), calc(-50% + 12px)) scale(1) rotate(-22deg);
+      }
+      100% {
+        transform: translate(340px, -260px) scale(1.4) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    .btn-sent-appear {
+      animation: btnSentReveal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes btnSentReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .fade-scale-in {
+      animation: fadeScaleIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+
+  <!-- ========================================== -->
+  <!-- DATI STRUTTURATI SEO (JSON-LD) -->
+  <!-- ========================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebDesignCompany",
+    "name": "ViGa Web Studio",
+    "url": "https://www.viga-webstudio.it/",
+    "description": "Creiamo siti web professionali, e-commerce ad alte prestazioni e applicazioni digitali su misura.",
+    "logo": "https://www.viga-webstudio.it/favicon.png",
+    "email": "vigawebstudio@gmail.com",
+    "telephone": "+393518184644",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IT"
+    },
+    "founders": [
+      {
+        "@type": "Person",
+        "name": "Daniele Vino"
+      },
+      {
+        "@type": "Person",
+        "name": "Andrea Gambino"
+      }
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+393518184644",
+        "contactType": "customer support",
+        "availableLanguage": "Italian"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+393518489644",
+        "contactType": "customer support",
+        "availableLanguage": "Italian"
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="selection:bg-cyan-500 selection:text-white relative antialiased">
+
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse-glow"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[140px]"></div>
+    <div class="absolute bottom-10 left-1/4 w-80 h-80 bg-indigo-600/15 rounded-full blur-[100px]"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#00d2ff 1px, transparent 1px); background-size: 28px 28px;"></div>
+  </div>
+
+  <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav border-b border-white/5" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <a href="#hero" class="flex items-center gap-3 group focus:outline-none" aria-label="ViGa Web Studio Home">
+        <div class="relative w-11 h-11 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_12px_rgba(0,210,255,0.4)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="vigaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0066FF" />
+                <stop offset="100%" stop-color="#00D2FF" />
+              </linearGradient>
+            </defs>
+            <path d="M12 28 L34 82 C37 89, 44 89, 47 82 L65 38 C70 26, 88 26, 92 38 C95 47, 92 68, 78 80 C68 88, 52 86, 44 76" 
+                  stroke="url(#vigaGrad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M68 58 L86 58" stroke="url(#vigaGrad)" stroke-width="7.5" stroke-linecap="round" />
+            <path d="M57 53 L52 58 L57 63" stroke="#00D2FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M62 53 L67 58 L62 63" stroke="#00D2FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="font-heading font-black text-2xl tracking-tight text-white">Vi<span class="text-cyan-400">Ga</span></span>
+            <span class="text-[10px] font-semibold tracking-widest text-cyan-400/90 uppercase px-1.5 py-0.5 rounded bg-cyan-950/70 border border-cyan-500/20">Studio</span>
+          </div>
+          <span class="text-[9px] tracking-[0.22em] text-slate-400 uppercase font-medium">Vino & Gambino</span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop Aggiornato -->
+      <nav class="hidden md:flex items-center space-x-6 lg:space-x-7 text-sm font-medium text-slate-300">
+        <a href="#servizi" class="hover:text-cyan-400 transition-colors py-1">Servizi</a>
+        <a href="#metodo" class="hover:text-cyan-400 transition-colors py-1">Metodo</a>
+        <a href="#calcolatore" class="hover:text-cyan-400 transition-colors py-1 flex items-center gap-1.5 text-cyan-300">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+          </span>
+          Preventivo
+        </a>
+        <a href="#chi-siamo" class="hover:text-cyan-400 transition-colors py-1">Team</a>
+        <a href="#lascia-recensione" class="hover:text-cyan-400 transition-colors py-1">Recensioni</a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-2.5">
+        <a href="https://www.instagram.com/vigawebstudio/" target="_blank" rel="noopener noreferrer" aria-label="Segui ViGa Web Studio su Instagram" class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/70 text-slate-300 hover:text-white hover:border-pink-500/60 hover:bg-gradient-to-tr hover:from-purple-900/40 hover:to-pink-600/30 transition-all duration-300 group">
+          <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61594376794463" target="_blank" rel="noopener noreferrer" aria-label="Segui ViGa Web Studio su Facebook" class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/70 text-slate-300 hover:text-white hover:border-blue-500/60 hover:bg-blue-600/20 transition-all duration-300 group">
+          <svg class="w-5 h-5 transition-transform group-hover:scale-110 text-slate-300 group-hover:text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+
+        <a href="#contatti" class="relative group overflow-hidden rounded-xl p-[1px] focus:outline-none ml-1">
+          <span class="absolute inset-0 bg-gradient-to-r from-blue-600 via-cyan-400 to-blue-600 transition-all duration-300 group-hover:opacity-100"></span>
+          <span class="relative px-5 py-2.5 rounded-[11px] bg-brand-dark flex items-center gap-2 text-sm font-semibold text-white group-hover:bg-opacity-80 transition duration-200">
+            <span>Parla con Noi</span>
+            <svg class="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-2 md:hidden">
+        <a href="https://www.instagram.com/vigawebstudio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="p-2 rounded-lg text-slate-300 hover:text-white bg-slate-900/60 border border-slate-700/60">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61594376794463" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="p-2 rounded-lg text-slate-300 hover:text-white bg-slate-900/60 border border-slate-700/60">
+          <svg class="w-4 h-4 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <button id="mobileMenuBtn" aria-label="Apri Menu" class="p-2 rounded-lg text-slate-300 hover:text-white bg-slate-900/60 border border-slate-700/60">
+          <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Mobile Aggiornato -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pt-3 pb-6 border-b border-brand-border bg-brand-dark/95 backdrop-blur-xl">
+      <nav class="flex flex-col space-y-3.5 text-base font-medium">
+        <a href="#hero" class="mobile-nav-link text-slate-200 hover:text-cyan-400 py-1">Home</a>
+        <a href="#servizi" class="mobile-nav-link text-slate-200 hover:text-cyan-400 py-1">Servizi</a>
+        <a href="#metodo" class="mobile-nav-link text-slate-200 hover:text-cyan-400 py-1">Il Nostro Metodo</a>
+        <a href="#calcolatore" class="mobile-nav-link text-cyan-300 hover:text-cyan-200 py-1">Calcola Preventivo</a>
+        <a href="#chi-siamo" class="mobile-nav-link text-slate-200 hover:text-cyan-400 py-1">Chi Siamo (Team)</a>
+        <a href="#lascia-recensione" class="mobile-nav-link text-slate-200 hover:text-cyan-400 py-1">Lascia una Recensione</a>
+        
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+          <a href="https://www.instagram.com/vigawebstudio/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 p-2 rounded-lg bg-slate-900 border border-slate-800 text-pink-400 hover:text-pink-300 text-xs">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram</span>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61594376794463" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 p-2 rounded-lg bg-slate-900 border border-slate-800 text-blue-400 hover:text-blue-300 text-xs">
+            <svg class="w-4 h-4 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+          </a>
+        </div>
+        <a href="#contatti" class="mobile-nav-link mt-2 text-center py-3 bg-gradient-brand text-white font-semibold rounded-xl">Richiedi Preventivo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <div class="lg:col-span-7 text-center lg:text-left">
+          
+          <div class="reveal inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 text-xs md:text-sm font-medium mb-6 backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span>Fondato da <strong>Daniele Vino</strong> & <strong>Andrea Gambino</strong></span>
+          </div>
+
+          <h1 class="reveal font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] mb-6">
+            Diamo forma al tuo business digitale con siti web <span class="text-gradient">moderni, veloci</span> e su misura.
+          </h1>
+
+          <p class="reveal delay-100 text-slate-300 text-lg sm:text-xl font-normal max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            Niente soluzioni standard. In <strong>ViGa Web Studio</strong> creiamo siti vetrina, negozi online e piattaforme su misura, studiati per presentare la tua attività e trasformare chi visita in contatti e clienti reali.
+          </p>
+
+          <div class="reveal delay-200 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+            <a href="#calcolatore" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-brand text-white font-semibold text-base shadow-[0_10px_25px_-5px_rgba(0,102,255,0.4)] hover:shadow-[0_15px_30px_-5px_rgba(0,210,255,0.5)] transition-all transform hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              Calcola il tuo Preventivo
+            </a>
+            <a href="#contatti" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-brand-card hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-base border border-slate-700/80 transition-all text-center">
+              Parla con Noi
+            </a>
+          </div>
+
+          <div class="reveal delay-300 grid grid-cols-3 gap-3 pt-6 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0">
+            <div class="text-center lg:text-left">
+              <div class="font-heading font-black text-2xl sm:text-3xl text-white">&lt; 1<span class="text-cyan-400 font-bold">s</span></div>
+              <div class="text-xs text-slate-400 font-medium">Caricamento Istantaneo</div>
+            </div>
+            <div class="text-center lg:text-left">
+              <div class="font-heading font-black text-2xl sm:text-3xl text-white">100<span class="text-cyan-400 font-bold">%</span></div>
+              <div class="text-xs text-slate-400 font-medium">Perfetto su Smartphone e Tablet</div>
+            </div>
+            <div class="text-center lg:text-left">
+              <div class="font-heading font-black text-2xl sm:text-3xl text-white">Google<span class="text-cyan-400 font-bold">★</span></div>
+              <div class="text-xs text-slate-400 font-medium">Ottimizzato per Farsi Trovare</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-5 relative reveal delay-200">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/30 to-cyan-400/20 rounded-3xl blur-2xl transform rotate-3"></div>
+
+            <div class="relative rounded-2xl bg-brand-card/90 border border-cyan-500/30 p-5 shadow-2xl backdrop-blur-xl">
+              <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800">
+                <div class="flex items-center gap-1.5">
+                  <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                  <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                </div>
+                <div class="text-[11px] font-mono text-cyan-400/80 bg-slate-900/80 px-2.5 py-0.5 rounded-full border border-cyan-500/20">
+                  www.viga-webstudio.it
+                </div>
+                <div class="text-slate-500 text-xs">● Live</div>
+              </div>
+
+              <div class="bg-[#050A18] rounded-xl p-5 border border-slate-800/90 relative overflow-hidden group">
+                <div class="flex flex-col items-center justify-center py-6 text-center">
+                  <div class="w-24 h-24 mb-3 relative animate-float-slow">
+                    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_20px_rgba(0,210,255,0.6)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 28 L34 82 C37 89, 44 89, 47 82 L65 38 C70 26, 88 26, 92 38 C95 47, 92 68, 78 80 C68 88, 52 86, 44 76" 
+                            stroke="url(#vigaGradHero)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M68 58 L86 58" stroke="url(#vigaGradHero)" stroke-width="8" stroke-linecap="round" />
+                      <path d="M57 53 L52 58 L57 63" stroke="#00D2FF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M62 53 L67 58 L62 63" stroke="#00D2FF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <defs>
+                        <linearGradient id="vigaGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#0066FF" />
+                          <stop offset="100%" stop-color="#00D2FF" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <h3 class="font-heading font-black text-2xl text-white tracking-wider">ViGa</h3>
+                  <p class="text-xs uppercase tracking-[0.25em] text-cyan-300 font-semibold mt-0.5">WEB STUDIO</p>
+                  <p class="text-[11px] text-slate-400 mt-2 font-mono">Daniele Vino &bull; Andrea Gambino</p>
+                </div>
+
+                <div class="mt-2 font-mono text-[11px] space-y-1.5 border-t border-slate-800/80 pt-3">
+                  <div class="text-slate-400"><span class="text-purple-400">const</span> <span class="text-blue-400">progetto</span> = <span class="text-yellow-400">{</span></div>
+                  <div class="pl-4 text-slate-300">partner: <span class="text-green-300">"Il Tuo Brand"</span>,</div>
+                  <div class="pl-4 text-slate-300">sviluppatori: [<span class="text-cyan-300">"D. Vino"</span>, <span class="text-cyan-300">"A. Gambino"</span>],</div>
+                  <div class="pl-4 text-slate-300">garanzia: <span class="text-emerald-400">"6 Mesi Inclusi"</span>, velocita: <span class="text-amber-300">"Massima"</span></div>
+                  <div class="text-yellow-400">}</div>
+                </div>
+              </div>
+
+              <div class="absolute -bottom-5 -left-5 bg-brand-dark/95 border border-cyan-500/40 rounded-xl p-3 shadow-xl flex items-center gap-3 animate-float-fast backdrop-blur-md">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base font-mono">
+                  6M
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-white">Garanzia Inclusa</div>
+                  <div class="text-[10px] text-slate-400">Assistenza tecnica per 6 mesi</div>
+                </div>
+              </div>
+
+              <div class="absolute -top-6 -right-4 bg-brand-dark/95 border border-blue-500/40 rounded-xl p-3 shadow-xl flex items-center gap-2.5 animate-float-slow backdrop-blur-md">
+                <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-cyan-400 flex items-center justify-center">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                </div>
+                <div class="text-xs">
+                  <span class="font-bold text-white block">100% Su Misura</span>
+                  <span class="text-[10px] text-cyan-400">Progettato per te</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI SECTION -->
+  <section id="servizi" class="py-24 relative z-10 border-t border-slate-900 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-3">Cosa Facciamo</h2>
+        <p class="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+          Soluzioni web d'eccellenza per aziende e professionisti
+        </p>
+        <p class="text-slate-400 mt-4 text-base sm:text-lg">
+          Dalla presenza aziendale di forte impatto fino a negozi online e funzioni su misura. Ogni riga di codice e grafica viene curata direttamente da Daniele Vino e Andrea Gambino.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="reveal glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-blue-600/10 border border-blue-500/20 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              Siti Web Vetrina &amp; Aziendali
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Presenta la tua attività con un design curato e autorevole. Una struttura pulita con testi chiari per conquistare subito la fiducia dei tuoi clienti.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Contatti rapidi via WhatsApp e telefono
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Visibilità perfetta su cellulare e computer
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal delay-100 glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-cyan-600/10 border border-cyan-500/20 text-cyan-300 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              E-Commerce &amp; Negozi Online
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Negozi online veloci e sicuri per vendere prodotti. Pagamenti con carta di credito, PayPal, Apple Pay, gestione magazzino e notifiche d'ordine.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Acquisto rapido e pagamenti sicuri
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Pannello di controllo facile per gestire i prodotti
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal delay-200 glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              Piattaforme &amp; Funzioni Custom
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Sviluppo di strumenti su misura: aree riservate per i clienti con password, sistemi di prenotazione, calcolatori di prezzo e pannelli dedicati.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Struttura protetta e affidabile
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Integrazione con i tuoi sistemi e database
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-purple-600/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              Grafica &amp; Identità Visiva
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Creazione di loghi, grafica coordinata e impostazione visiva per rendere il tuo marchio professionale, coerente e immediatamente riconoscibile.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Stile moderno e personalizzato
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Anteprima grafica prima dello sviluppo
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal delay-100 glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              Restyling &amp; Visibilità Google
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Hai un sito web datato o lento che non porta contatti? Lo riprogettiamo completamente migliorando la velocità, la sicurezza e la posizione su Google.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Controllo completo e velocizzazione
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Ottimizzazione per farti trovare dai clienti
+            </li>
+          </ul>
+        </div>
+
+        <div class="reveal delay-200 glass-card rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-14 h-14 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-300 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-white mb-3 group-hover:text-cyan-300 transition-colors">
+              Manutenzione &amp; Garanzia Post-Lancio
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+              Non ti lasciamo solo dopo la pubblicazione. Includiamo 6 mesi di garanzia e supporto tecnico gratuito, con possibilità di estenderla nel tempo.
+            </p>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-800/80 pt-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              6 Mesi di garanzia tecnica inclusi
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Supporto diretto via WhatsApp e backup sicuri
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CALCOLATORE PREVENTIVO LIVE -->
+  <section id="calcolatore" class="py-24 relative z-10 border-t border-slate-900 bg-slate-950/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="reveal rounded-3xl bg-brand-card/90 border border-cyan-500/30 p-6 sm:p-10 lg:p-12 relative overflow-hidden shadow-2xl backdrop-blur-2xl">
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto text-center mb-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 uppercase tracking-wider mb-3">
+            Trasparenza al 100%
+          </span>
+          <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            Configura il tuo progetto e calcola la stima
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2">
+            Seleziona la tipologia di sito web e le funzioni che desideri per avere una stima in tempo reale. Potrai inviarcela con un clic per ricevere l'offerta dettagliata.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <div class="lg:col-span-7 space-y-6">
+            
+            <div>
+              <label class="block text-sm font-semibold text-slate-200 mb-3">1. Che tipo di sito web ti occorre?</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button type="button" class="quote-type-btn p-3.5 rounded-xl border border-cyan-400 bg-cyan-500/20 text-white font-medium text-sm text-left transition-all active" data-type="vetrina" data-base="350">
+                  <span class="font-bold block text-cyan-300 text-base">Sito Vetrina</span>
+                  <span class="text-xs text-slate-300">Aziendale o personale d'impatto</span>
+                </button>
+                <button type="button" class="quote-type-btn p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 text-slate-300 font-medium text-sm text-left transition-all hover:border-slate-500" data-type="ecommerce" data-base="850">
+                  <span class="font-bold block text-white text-base">E-Commerce</span>
+                  <span class="text-xs text-slate-400">Vendita prodotti e pagamenti online</span>
+                </button>
+                <button type="button" class="quote-type-btn p-3.5 rounded-xl border border-slate-700 bg-slate-900/60 text-slate-300 font-medium text-sm text-left transition-all hover:border-slate-500" data-type="custom" data-base="1250">
+                  <span class="font-bold block text-white text-base">Web App / Custom</span>
+                  <span class="text-xs text-slate-400">Area riservata o funzioni avanzate</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center mb-2">
+                <label for="pagesRange" class="text-sm font-semibold text-slate-200">2. Numero approssimativo di pagine:</label>
+                <span id="pagesDisplay" class="font-mono font-bold text-cyan-300 bg-cyan-950 px-2.5 py-0.5 rounded text-sm border border-cyan-500/30">1 - 5 Pagine</span>
+              </div>
+              <input id="pagesRange" type="range" min="1" max="25" value="5" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>One-page / Landing</span>
+                <span>Circa 10-15</span>
+                <span>Oltre 20 pagine</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center mb-2">
+                <label for="complexityRange" class="text-sm font-semibold text-slate-200">3. Livello di complessità e rifinitura grafica:</label>
+                <span id="complexityDisplay" class="font-mono font-bold text-cyan-300 bg-cyan-950 px-2.5 py-0.5 rounded text-sm border border-cyan-500/30">Avanzato / Curato</span>
+              </div>
+              <input id="complexityRange" type="range" min="1" max="3" value="2" step="1" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>Essenziale (Pulito)</span>
+                <span>Avanzato (Micro-animazioni)</span>
+                <span>Luxury / Effetti 3D</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center mb-2">
+                <label for="warrantyRange" class="text-sm font-semibold text-slate-200">4. Garanzia e assistenza tecnica:</label>
+                <span id="warrantyDisplay" class="font-mono font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-0.5 rounded text-sm border border-emerald-500/30">6 Mesi (Inclusa Gratis)</span>
+              </div>
+              <input id="warrantyRange" type="range" min="1" max="3" value="1" step="1" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-400">
+              <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                <span>6 Mesi (Inclusa Gratis)</span>
+                <span>12 Mesi (+€120)</span>
+                <span>24 Mesi (+€220)</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-200 mb-3">5. Funzionalità extra e potenziamenti:</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" class="quote-addon rounded border-slate-700 text-cyan-500 focus:ring-0 w-4 h-4 bg-slate-800" data-price="150" data-name="SEO Avanzato Google">
+                  <div>
+                    <span class="text-slate-200 block text-xs font-semibold">SEO Avanzato Google</span>
+                    <span class="text-[11px] text-slate-400">Ottimizzazione per farsi trovare nelle ricerche</span>
+                  </div>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" class="quote-addon rounded border-slate-700 text-cyan-500 focus:ring-0 w-4 h-4 bg-slate-800" data-price="200" data-name="Sito Multilingua (IT + EN)">
+                  <div>
+                    <span class="text-slate-200 block text-xs font-semibold">Sito Multilingua (IT + EN)</span>
+                    <span class="text-[11px] text-slate-400">Architettura pronta per l'estero</span>
+                  </div>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" class="quote-addon rounded border-slate-700 text-cyan-500 focus:ring-0 w-4 h-4 bg-slate-800" data-price="100" data-name="Adeguamento Privacy & Cookie GDPR">
+                  <div>
+                    <span class="text-slate-200 block text-xs font-semibold">Adeguamento Privacy &amp; GDPR</span>
+                    <span class="text-[11px] text-slate-400">Banner legale e gestione consensi</span>
+                  </div>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-slate-700 cursor-pointer">
+                  <input type="checkbox" class="quote-addon rounded border-slate-700 text-cyan-500 focus:ring-0 w-4 h-4 bg-slate-800" data-price="200" data-name="Brand Identity & Grafica Coordinata">
+                  <div>
+                    <span class="text-slate-200 block text-xs font-semibold">Brand Identity &amp; Grafica</span>
+                    <span class="text-[11px] text-slate-400">Logo e identità coordinata completa</span>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-5 bg-gradient-to-b from-slate-900 to-[#070e24] p-6 rounded-2xl border border-cyan-500/30 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Preventivo Orientativo</span>
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">Nessun Vincolo</span>
+              </div>
+
+              <div class="my-6 text-center">
+                <div class="text-xs text-slate-400 mb-1">Investimento stimato da</div>
+                <div class="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight flex items-center justify-center gap-1">
+                  <span class="text-cyan-400">€</span>
+                  <span id="calculatedPrice">450</span>
+                </div>
+                <div class="text-[12px] text-slate-400 mt-2">Tempi di consegna stimati: <span id="deliveryTime" class="text-cyan-300 font-semibold">10-30 giorni lavorativi</span></div>
+              </div>
+
+              <div class="bg-black/30 rounded-xl p-4 text-xs space-y-2 mb-6 border border-slate-800">
+                <div class="flex justify-between text-slate-300">
+                  <span>Soluzione selezionata:</span>
+                  <span id="summaryPlan" class="font-semibold text-white">Sito Vetrina</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>Volume pagine:</span>
+                  <span id="summaryPages" class="font-semibold text-white">Fino a 5 pagine</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>Complessità grafica:</span>
+                  <span id="summaryComplexity" class="font-semibold text-white">Avanzato / Curato</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>Garanzia &amp; Supporto:</span>
+                  <span id="summaryWarranty" class="font-semibold text-emerald-400">6 Mesi Inclusa</span>
+                </div>
+                <div class="flex justify-between text-slate-300">
+                  <span>Extra attivi:</span>
+                  <span id="summaryAddonsCount" class="font-semibold text-cyan-400">Nessuno</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button id="applyQuoteBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-brand text-white font-bold text-sm shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+                <span>Invia Richiesta con Questa Configurazione</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </button>
+              <p class="text-[11px] text-slate-400 text-center mt-3">
+                Include: Responsive design, ottimizzazione mobile, 6 mesi di garanzia e supporto dedicati.<br>
+                <span class="text-amber-400 font-semibold block mt-2 bg-amber-500/10 border border-amber-500/20 p-2 rounded-lg">⚠️ Il dominio ufficiale e l'hosting web sono a carico del cliente (offriamo assistenza passo passo per l'acquisto). Sconsigliamo le opzioni gratuite perché non funzionano bene e limitano la visibilità.</span>
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CHI SIAMO / I FONDATORI -->
+  <section id="chi-siamo" class="py-24 relative z-10 border-t border-slate-900 bg-slate-950/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950 text-blue-300 border border-blue-500/30 uppercase tracking-widest mb-3">
+          La Nostra Identità
+        </div>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+          Dall'incontro di due visioni nasce <span class="text-gradient">ViGa Web Studio</span>
+        </h2>
+        <p class="text-slate-300 mt-4 text-base sm:text-lg leading-relaxed">
+          Il nome <strong>ViGa</strong> nasce dalla sinergia naturale tra i nostri cognomi: <span class="text-cyan-400 font-semibold">Vi</span>no e <span class="text-cyan-400 font-semibold">Ga</span>mbino. Uniamo l'ingegneria software alla creatività visiva per offrire soluzioni web moderne, veloci e concrete.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+        
+        <div class="reveal delay-100 rounded-2xl bg-brand-card border border-blue-500/25 p-7 sm:p-8 relative overflow-hidden group hover:border-cyan-400/50 transition-all duration-300">
+          <div class="absolute -top-12 -right-12 w-40 h-40 bg-blue-600/10 rounded-full blur-2xl group-hover:bg-blue-600/20 transition-all"></div>
+          
+          <div class="flex items-center gap-5 mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-700 to-cyan-500 p-0.5 flex-shrink-0 shadow-lg">
+              <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-heading font-black text-2xl text-cyan-400">
+                DV
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-2xl text-white">Daniele Vino</h3>
+              <p class="text-cyan-400 font-medium text-sm">Co-Founder &amp; Tech Lead</p>
+              <div class="flex items-center gap-2 text-xs text-slate-400 mt-1">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>Sviluppo Web &bull; Architetture Digitali</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            Attento al codice pulito, alla sicurezza e alla velocità di caricamento. Daniele cura lo sviluppo tecnico dei siti e delle funzioni custom, garantendo stabilità, protezione e ottime prestazioni.
+          </p>
+
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">HTML5 / Tailwind</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">JavaScript Moderno</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">Pagamenti &amp; E-Commerce</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">Sicurezza Web</span>
+          </div>
+        </div>
+
+        <div class="reveal delay-200 rounded-2xl bg-brand-card border border-cyan-500/25 p-7 sm:p-8 relative overflow-hidden group hover:border-cyan-400/50 transition-all duration-300">
+          <div class="absolute -top-12 -right-12 w-40 h-40 bg-cyan-600/10 rounded-full blur-2xl group-hover:bg-cyan-600/20 transition-all"></div>
+          
+          <div class="flex items-center gap-5 mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 p-0.5 flex-shrink-0 shadow-lg">
+              <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-heading font-black text-2xl text-blue-400">
+                AG
+              </div>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-2xl text-white">Andrea Gambino</h3>
+              <p class="text-cyan-400 font-medium text-sm">Co-Founder &amp; Creative Director</p>
+              <div class="flex items-center gap-2 text-xs text-slate-400 mt-1">
+                <span class="inline-block w-2 h-2 rounded-full bg-cyan-400"></span>
+                <span>UI/UX Design &bull; Strategia Visiva</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            Specializzato nell'esperienza visiva e nella facilità d'uso. Andrea valorizza l'identità di ogni cliente attraverso layout moderni e intuitivi, pensati per guidare l'utente al contatto o all'acquisto.
+          </p>
+
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">UI/UX Design</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">Prototipazione Figma</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">Brand Identity</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 border border-slate-800">Design per la Conversione</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="reveal delay-300 max-w-4xl mx-auto rounded-2xl bg-gradient-to-r from-blue-950/60 to-cyan-950/60 border border-cyan-500/20 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div>
+          <h4 class="font-heading font-bold text-lg sm:text-xl text-white">Perché lavorare direttamente con noi?</h4>
+          <p class="text-slate-300 text-sm mt-1">Nessun intermediario o attesa inutile. Parli sempre direttamente con chi progetta e sviluppa il tuo sito.</p>
+        </div>
+        <button id="bookCallBtn" type="button" class="px-6 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-cyan-100 transition whitespace-nowrap shadow-md">
+          Fissa una Call Conoscitiva
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IL NOSTRO METODO IN 4 STEP -->
+  <section id="metodo" class="py-24 relative z-10 border-t border-slate-900 bg-slate-950/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="reveal text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">Processo Trasparente</span>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-1">
+          Come diamo vita al tuo nuovo sito web
+        </h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base">
+          Una metodologia collaudata passo dopo passo che garantisce scadenze precise, zero imprevisti e piena chiarezza.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+        
+        <div class="reveal glass-card rounded-2xl p-6 relative group">
+          <div class="font-mono font-bold text-4xl text-cyan-500/30 group-hover:text-cyan-400 transition-colors mb-4">01</div>
+          <h3 class="font-heading font-bold text-lg text-white mb-2">Analisi Iniziale</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Incontro per comprendere il tuo target, chiarire gli obiettivi del sito e pianificare la struttura più adatta.
+          </p>
+        </div>
+
+        <div class="reveal delay-100 glass-card rounded-2xl p-6 relative group">
+          <div class="font-mono font-bold text-4xl text-cyan-500/30 group-hover:text-cyan-400 transition-colors mb-4">02</div>
+          <h3 class="font-heading font-bold text-lg text-white mb-2">Design UI/UX</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Andrea elabora il concept grafico: approvi l'aspetto visivo e la disposizione dei contenuti prima di procedere.
+          </p>
+        </div>
+
+        <div class="reveal delay-200 glass-card rounded-2xl p-6 relative group">
+          <div class="font-mono font-bold text-4xl text-cyan-500/30 group-hover:text-cyan-400 transition-colors mb-4">03</div>
+          <h3 class="font-heading font-bold text-lg text-white mb-2">Sviluppo Tecnico</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Daniele programma il sito con codice moderno, rapido e sicuro, ottimizzando ogni pagina per smartphone e motori di ricerca.
+          </p>
+        </div>
+
+        <div class="reveal delay-300 glass-card rounded-2xl p-6 relative group">
+          <div class="font-mono font-bold text-4xl text-cyan-500/30 group-hover:text-cyan-400 transition-colors mb-4">04</div>
+          <h3 class="font-heading font-bold text-lg text-white mb-2">Pubblicazione &amp; Supporto</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Messa online sul tuo dominio (ti aiuteremo noi ad acquistarlo). Include indicizzazione Google e 6 mesi di garanzia inclusi.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEZIONE CONTATTI & RICHIESTA -->
+  <section id="contatti" class="py-24 relative z-10 border-t border-slate-900 bg-slate-950/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <div class="lg:col-span-5 space-y-8 reveal">
+          <div>
+            <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">Mettiti in Contatto</span>
+            <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-1">
+              Hai un progetto in mente? Parliamone oggi stesso.
+            </h2>
+            <p class="text-slate-400 text-sm sm:text-base mt-3 leading-relaxed">
+              Daniele e Andrea sono a tua disposizione per valutare le tue necessità senza alcun impegno. Compila il form o scrivici direttamente.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            
+            <a href="mailto:vigawebstudio@gmail.com" class="p-4 rounded-xl bg-brand-card border border-slate-800 flex items-center gap-4 hover:border-cyan-400/50 transition-all group">
+              <div class="w-12 h-12 rounded-lg bg-blue-600/20 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 font-medium">Scrivici via Email</div>
+                <div class="text-white font-semibold text-sm">vigawebstudio@gmail.com</div>
+              </div>
+            </a>
+
+            <div class="p-4 rounded-xl bg-brand-card border border-slate-800 space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-600/20 text-emerald-400 flex items-center justify-center">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-400 font-medium">Telefono &amp; WhatsApp Diretto</div>
+                  <div class="text-[11px] text-emerald-400">Rispondiamo rapidamente</div>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-xs">
+                <a href="https://wa.me/393518184644" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-cyan-400/40 transition group flex flex-col">
+                  <span class="text-[10px] text-slate-400">Daniele Vino:</span>
+                  <span class="font-semibold text-white group-hover:text-cyan-300 transition-colors">+39 351 818 4644</span>
+                </a>
+                <a href="https://wa.me/393518489644" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-cyan-400/40 transition group flex flex-col">
+                  <span class="text-[10px] text-slate-400">Andrea Gambino:</span>
+                  <span class="font-semibold text-white group-hover:text-cyan-300 transition-colors">+39 351 848 9644</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-brand-card border border-slate-800 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <div class="text-xs text-slate-400 font-medium">Sede Operativa</div>
+                <div class="text-white font-semibold text-sm">Operiamo in tutta Italia (in presenza &amp; da remoto)</div>
+              </div>
+            </div>
+
+            <!-- NOTA PREVENTIVI E HOSTING RIPRISTINATA -->
+            <div class="p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 space-y-3">
+              <p>💡 <strong>Nota Preventivi:</strong> Tutti i preventivi forniti da ViGa Web Studio sono gratuiti, trasparenti e dettagliati voce per voce.</p>
+              <div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-200">
+                <p>⚠️ <strong class="text-amber-400">Nota su Dominio e Hosting:</strong> L'acquisto del <strong>dominio</strong> (es. www.tuonome.it) e dell'<strong>hosting web</strong> è a carico del cliente. Ti daremo noi una mano guidandoti passo passo nell'acquisto. Esistono anche servizi gratuiti, ma li sconsigliamo fortemente perché sono lenti, poco professionali e limitano la tua visibilità su Google.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-7 space-y-6 reveal delay-200">
+          <div class="bg-brand-card rounded-2xl border border-slate-800 p-6 sm:p-8 relative shadow-2xl">
+            
+            <!-- BANNER SCARSITÀ ARTIGIANALE -->
+            <div class="mb-6 p-4 rounded-xl bg-gradient-to-r from-amber-500/10 to-rose-500/10 border border-amber-500/20 flex items-start gap-3 shadow-inner">
+              <span class="text-amber-400 text-lg mt-0.5">⏳</span>
+              <div>
+                <h4 class="text-amber-400 font-bold text-sm">Disponibilità Limitata</h4>
+                <p class="text-slate-300 text-xs mt-1.5 leading-relaxed">
+                  Essendo un team di due persone, per garantire la massima cura del codice e del design accettiamo un massimo di <strong>3 nuovi progetti al mese</strong>. Scrivici per bloccare il tuo posto.
+                </p>
+              </div>
+            </div>
+            
+            <form id="contactForm" class="space-y-5" onsubmit="event.preventDefault(); handleFormSubmit();">
+              
+              <div id="attachedQuoteBox" class="hidden p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/40 transition-all scroll-mt-24">
+                <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-cyan-500/20">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Configurazione Preventivo Calcolata</span>
+                  </div>
+                  <button type="button" id="removeQuoteBtn" class="text-[11px] text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
+                    <span>✕ Rimuovi</span>
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-slate-300">
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Tipologia:</span>
+                    <span id="attachedPlan" class="font-semibold text-white">Sito Vetrina</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Pagine:</span>
+                    <span id="attachedPages" class="font-semibold text-white">1 - 5 Pagine</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Stile:</span>
+                    <span id="attachedComplexity" class="font-semibold text-white">Avanzato</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Stima:</span>
+                    <span id="attachedPrice" class="font-bold text-cyan-300">€ 450</span>
+                  </div>
+                </div>
+                <div class="mt-2 pt-2 border-t border-cyan-500/10 text-[10px] text-slate-400 flex flex-wrap justify-between gap-1">
+                  <div>Garanzia: <span id="attachedWarranty" class="text-emerald-400 font-semibold">6 Mesi Inclusa</span></div>
+                  <div>Extra: <span id="attachedAddons" class="text-slate-300 font-medium">Nessuno</span></div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="userName" class="block text-xs font-semibold text-slate-300 mb-1.5">Il tuo Nome e Cognome *</label>
+                  <input type="text" id="userName" name="Nome_Cognome" required placeholder="Mario Rossi" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+                <div>
+                  <label for="userCompany" class="block text-xs font-semibold text-slate-300 mb-1.5">Nome Azienda / Attività</label>
+                  <input type="text" id="userCompany" name="Azienda" placeholder="Nome Azienda o Negozio" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="userEmail" class="block text-xs font-semibold text-slate-300 mb-1.5">Indirizzo Email *</label>
+                  <input type="email" id="userEmail" name="Email" required placeholder="mario@esempio.it" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+                <div>
+                  <label for="userPhone" class="block text-xs font-semibold text-slate-300 mb-1.5">Numero di Telefono *</label>
+                  <input type="tel" id="userPhone" name="Telefono" required placeholder="+39 340 1234567" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+              </div>
+
+              <div>
+                <label for="projectTypeSelect" class="block text-xs font-semibold text-slate-300 mb-1.5">Tipologia di Progetto</label>
+                <select id="projectTypeSelect" name="Tipologia_Progetto" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                  <option value="vetrina">Sito Vetrina / Corporate</option>
+                  <option value="ecommerce">E-Commerce</option>
+                  <option value="custom">Web Application / Funzioni Custom</option>
+                  <option value="restyling">Restyling &amp; Ottimizzazione SEO</option>
+                  <option value="call">Fissa una Call Conoscitiva</option>
+                  <option value="consulenza">Consulenza Digitale Dedicata</option>
+                  <option value="altro">Altro (Non in elenco)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="userMessage" class="block text-xs font-semibold text-slate-300 mb-1.5">Parlaci dei tuoi obiettivi e dettagli del sito *</label>
+                <textarea id="userMessage" name="Messaggio" rows="4" required placeholder="Descrivi brevemente cosa vorresti realizzare, tempistiche o eventuali siti di riferimento..." class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
+              </div>
+
+              <div class="flex items-start gap-2 pt-1">
+                <input type="checkbox" id="gdprCheck" required class="mt-1 rounded border-slate-700 text-cyan-500 bg-slate-900 focus:ring-0">
+                <label for="gdprCheck" class="text-[11px] text-slate-400 leading-normal">
+                  Accetto l'<button type="button" class="text-cyan-400 underline hover:text-cyan-300 open-privacy-btn">informativa sulla privacy</button> ai sensi del Regolamento UE 2016/679 (GDPR). I dati saranno trattati da Daniele Vino e Andrea Gambino esclusivamente per ricontattarti in merito alla tua richiesta.
+                </label>
+              </div>
+
+              <div class="submit-btn-wrapper relative w-full h-[58px]">
+                <button type="submit" id="submitBtn" class="relative w-full h-full rounded-xl bg-gradient-brand text-white font-bold text-base shadow-[0_10px_25px_-5px_rgba(0,102,255,0.4)] hover:shadow-cyan-500/40 transition-all flex items-center justify-center overflow-hidden">
+                  <div id="btnDefaultState" class="flex items-center justify-center gap-2">
+                    <span>Invia Richiesta</span>
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                  </div>
+                </button>
+
+                <div id="origamiPlane" class="hidden absolute top-1/2 left-1/2 pointer-events-none z-30">
+                  <svg class="w-10 h-10 text-white drop-shadow-[0_4px_16px_rgba(0,210,255,0.9)]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                  </svg>
+                </div>
+
+                <div id="sentBadgeBtn" class="hidden absolute inset-0 rounded-xl bg-slate-900 border border-emerald-500/50 text-emerald-400 font-bold flex items-center justify-center gap-2 shadow-lg z-20">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>Inviato!</span>
+                </div>
+              </div>
+
+              <div id="formFeedback" class="hidden p-4 rounded-xl text-xs text-center"></div>
+
+            </form>
+
+          </div>
+
+          <!-- MODULO INTERATTIVO: LASCIA UNA VALUTAZIONE A VIGA WEB STUDIO -->
+          <div id="lascia-recensione" class="p-6 rounded-2xl bg-brand-card/95 border border-cyan-500/30 shadow-xl backdrop-blur-xl relative mt-6 scroll-mt-24">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold">
+                  ★
+                </span>
+                <div>
+                  <h3 class="font-heading font-bold text-base text-white">Hai lavorato con noi? Lascia una Valutazione</h3>
+                  <p class="text-[11px] text-slate-400">La tua opinione è preziosa per Daniele Vino &amp; Andrea Gambino</p>
+                </div>
+              </div>
+              <span class="hidden sm:inline-flex text-[10px] text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/30">Feedback Diretto</span>
+            </div>
+
+            <form id="reviewForm" onsubmit="event.preventDefault(); handleReviewSubmit();" class="space-y-4">
+              <!-- Selezione Stelle -->
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Il tuo Voto (Stelle):</label>
+                <div class="flex items-center gap-1.5" id="starRatingContainer">
+                  <button type="button" data-val="1" class="star-btn text-2xl text-slate-600 hover:text-amber-400 transition-colors focus:outline-none">★</button>
+                  <button type="button" data-val="2" class="star-btn text-2xl text-slate-600 hover:text-amber-400 transition-colors focus:outline-none">★</button>
+                  <button type="button" data-val="3" class="star-btn text-2xl text-slate-600 hover:text-amber-400 transition-colors focus:outline-none">★</button>
+                  <button type="button" data-val="4" class="star-btn text-2xl text-slate-600 hover:text-amber-400 transition-colors focus:outline-none">★</button>
+                  <button type="button" data-val="5" class="star-btn text-2xl text-slate-600 hover:text-amber-400 transition-colors focus:outline-none">★</button>
+                  <span id="starLabel" class="ml-2 text-xs font-semibold text-amber-400">5 su 5 (Eccellente)</span>
+                </div>
+                <input type="hidden" id="reviewRatingInput" value="5">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label for="reviewerName" class="block text-[11px] font-semibold text-slate-300 mb-1">Il tuo Nome *</label>
+                  <input type="text" id="reviewerName" required placeholder="Es. Luca Bianchi" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+                <div>
+                  <label for="reviewerRole" class="block text-[11px] font-semibold text-slate-300 mb-1">Azienda / Attività (Opzionale)</label>
+                  <input type="text" id="reviewerRole" placeholder="Es. Titolare, Studio Bianchi" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+                </div>
+              </div>
+
+              <div>
+                <label for="reviewerComment" class="block text-[11px] font-semibold text-slate-300 mb-1">Come ti sei trovato con noi? *</label>
+                <textarea id="reviewerComment" rows="3" required placeholder="Racconta la tua esperienza con Daniele e Andrea: professionalità, puntualità, risultato finale del sito web..." class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
+              </div>
+
+              <div class="flex items-center justify-between pt-1">
+                <span class="text-[10px] text-slate-400">Grazie per aiutarci a crescere!</span>
+                <button type="submit" id="reviewSubmitBtn" class="px-5 py-2.5 rounded-xl bg-gradient-brand text-white font-bold text-xs hover:opacity-95 shadow-md hover:shadow-cyan-500/25 transition">
+                  Invia Valutazione
+                </button>
+              </div>
+
+              <div id="reviewFeedback" class="hidden p-3 rounded-xl text-xs text-center mt-2"></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#040814] border-t border-slate-900 pt-16 pb-12 relative z-10 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+        
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8">
+              <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 28 L34 82 C37 89, 44 89, 47 82 L65 38 C70 26, 88 26, 92 38 C95 47, 92 68, 78 80 C68 88, 52 86, 44 76" 
+                      stroke="#00D2FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M68 58 L86 58" stroke="#00D2FF" stroke-width="7.5" stroke-linecap="round" />
+                <path d="M57 53 L52 58 L57 63" stroke="#0066FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M62 53 L67 58 L62 63" stroke="#0066FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="font-heading font-black text-xl text-white tracking-tight">ViGa <span class="text-cyan-400">Web Studio</span></span>
+          </div>
+
+          <p class="text-slate-400 leading-relaxed max-w-sm">
+            Studio di sviluppo e design web fondato da <strong>Daniele Vino</strong> e <strong>Andrea Gambino</strong>. Diamo forma alla tua presenza online con qualità tecnica e cura del design.
+          </p>
+
+          <div class="flex flex-wrap gap-2.5 pt-2">
+            <a href="https://www.instagram.com/vigawebstudio/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 hover:bg-slate-850 text-slate-300 hover:text-white transition group">
+              <svg class="w-4 h-4 text-pink-500 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61594376794463" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 hover:bg-slate-850 text-slate-300 hover:text-white transition group">
+              <svg class="w-4 h-4 text-[#1877F2] group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span>Facebook</span>
+            </a>
+          </div>
+
+          <div class="text-[11px] text-slate-500 font-mono pt-2">
+            VINO &bull; GAMBINO &bull; TECNOLOGIA &bull; DESIGN
+          </div>
+        </div>
+
+        <div class="md:col-span-3 space-y-3">
+          <h5 class="text-white font-bold uppercase tracking-wider text-xs">Navigazione Rapida</h5>
+          <ul class="space-y-2">
+            <li><a href="#hero" class="hover:text-cyan-400 transition-colors">Home</a></li>
+            <li><a href="#servizi" class="hover:text-cyan-400 transition-colors">Servizi Digitali</a></li>
+            <li><a href="#metodo" class="hover:text-cyan-400 transition-colors">Il Nostro Metodo</a></li>
+            <li><a href="#calcolatore" class="hover:text-cyan-400 transition-colors">Calcolatore Preventivo</a></li>
+            <li><a href="#lascia-recensione" class="hover:text-cyan-400 transition-colors">Lascia una Recensione</a></li>
+            <li><a href="#contatti" class="hover:text-cyan-400 transition-colors">Contatti Diretti</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-4 space-y-3">
+          <h5 class="text-white font-bold uppercase tracking-wider text-xs">Cosa Sviluppiamo</h5>
+          <ul class="space-y-2">
+            <li>Siti Web Aziendali e Professionali</li>
+            <li>Negozi Online E-Commerce Completi</li>
+            <li>Piattaforme Web e Aree Riservate</li>
+            <li>Ottimizzazione Velocità &amp; Posizionamento Google</li>
+            <li>Assistenza e Manutenzione Annuale</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+        <div>
+          &copy; <span id="currentYear"></span> <strong>ViGa Web Studio</strong> &bull; Fondatori: <strong>Daniele Vino</strong> &amp; <strong>Andrea Gambino</strong>. Tutti i diritti riservati.
+        </div>
+        <div class="flex items-center flex-wrap gap-x-5 gap-y-2">
+          <button type="button" class="hover:text-cyan-400 transition-colors open-privacy-btn">Privacy Policy</button>
+          <button type="button" class="hover:text-cyan-400 transition-colors open-cookie-btn">Cookie Policy</button>
+          
+          <button type="button" id="cookieSettingsBtn" class="hover:text-cyan-400 transition-colors flex items-center gap-1 text-slate-300">
+            <span>Preferenze Cookie</span>
+          </button>
+          <a href="#contatti" class="text-cyan-400 hover:text-cyan-300 font-semibold">Richiedi Preventivo</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================ -->
+  <!-- PULSANTE FLOATING FAQ E BACK TO TOP -->
+  <!-- ============================================================ -->
+  
+  <button id="floatingFaqBtn" class="fixed bottom-6 left-6 z-40 px-5 py-3 rounded-full bg-slate-900 border border-cyan-500/50 shadow-xl hover:shadow-cyan-500/20 text-white font-semibold text-sm flex items-center gap-2 transition-transform hover:-translate-y-1 open-faq-btn focus:outline-none backdrop-blur-md bg-opacity-90">
+    <span class="w-6 h-6 rounded-full bg-gradient-brand text-white flex items-center justify-center font-bold text-xs">?</span>
+    <span class="hidden sm:inline-block">Hai una domanda?</span>
+  </button>
+
+  <button id="backToTopBtn" class="fixed bottom-6 right-6 z-40 p-3.5 rounded-full bg-brand-card border border-cyan-500/40 text-cyan-400 shadow-xl opacity-0 invisible transition-all duration-300 hover:bg-slate-800 hover:text-white hover:border-cyan-400 hover:-translate-y-1 focus:outline-none backdrop-blur-md" aria-label="Torna in cima">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+  </button>
+
+  <!-- ============================================================ -->
+  <!-- MODALE FAQ E ALTRI MODALI (PRIVACY/COOKIE) ... -->
+  <!-- ============================================================ -->
+  <div id="faqModal" class="hidden fixed inset-0 z-[60] overflow-y-auto bg-black/80 backdrop-blur-md p-4 sm:p-6 flex items-center justify-center">
+    <div class="relative w-full max-w-3xl rounded-2xl bg-brand-card border border-cyan-500/30 shadow-2xl max-h-[90vh] flex flex-col text-slate-300">
+      
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-brand-card z-10 rounded-t-2xl">
+        <div>
+          <h3 class="font-heading font-bold text-xl text-white">Domande Frequenti (FAQ)</h3>
+          <p class="text-[11px] text-cyan-400">Tutto ciò che c'è da sapere sui nostri servizi</p>
+        </div>
+        <button type="button" class="close-faq-modal p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition focus:outline-none">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-5 sm:p-7 overflow-y-auto space-y-4 text-xs leading-relaxed">
+        
+        <div class="space-y-3 mb-8">
+          <details class="bg-slate-900/60 border border-slate-800 rounded-xl group cursor-pointer" open>
+            <summary class="flex items-center justify-between p-4 font-semibold text-white focus:outline-none">
+              Dominio e Hosting sono inclusi nel prezzo?
+              <span class="text-cyan-400 text-lg group-open:rotate-45 transition-transform duration-300">+</span>
+            </summary>
+            <div class="px-4 pb-4 text-[11px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3 mt-1">
+              L'acquisto del <strong>dominio</strong> (es. www.tuonome.it) e dell'<strong>hosting web</strong> sono a carico del cliente, poiché devono essere intestati a tuo nome per garantirti la piena proprietà legale. Ti aiuteremo noi guidandoti passo passo nell'acquisto (il costo si aggira solitamente intorno ai 30-50€ annui presso provider sicuri come Aruba o Hostinger). <strong>Sconsigliamo vivamente i servizi gratuiti</strong> perché sono lenti e limitano la tua visibilità su Google.
+            </div>
+          </details>
+
+          <details class="bg-slate-900/60 border border-slate-800 rounded-xl group cursor-pointer">
+            <summary class="flex items-center justify-between p-4 font-semibold text-white focus:outline-none">
+              Quali sono i tempi medi per la consegna di un sito?
+              <span class="text-cyan-400 text-lg group-open:rotate-45 transition-transform duration-300">+</span>
+            </summary>
+            <div class="px-4 pb-4 text-[11px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3 mt-1">
+              Le tempistiche variano in base alla complessità del progetto. Un <strong>Sito Vetrina</strong> richiede in media tra i 10 e i 30 giorni lavorativi. Un <strong>E-Commerce</strong> o un progetto con funzionalità avanzate richiede dalle 4 alle 8 settimane. Nel preventivo specifichiamo sempre in modo chiaro le scadenze.
+            </div>
+          </details>
+
+          <details class="bg-slate-900/60 border border-slate-800 rounded-xl group cursor-pointer">
+            <summary class="flex items-center justify-between p-4 font-semibold text-white focus:outline-none">
+              Offrite assistenza e garanzia dopo la pubblicazione?
+              <span class="text-cyan-400 text-lg group-open:rotate-45 transition-transform duration-300">+</span>
+            </summary>
+            <div class="px-4 pb-4 text-[11px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3 mt-1">
+              Assolutamente sì. Includiamo sempre <strong>6 mesi di garanzia e supporto tecnico gratuiti</strong>. Per qualsiasi anomalia, malfunzionamento o necessità di un ripristino, siamo a tua disposizione. Inoltre, tramite il calcolatore preventivi puoi decidere di estendere questa assistenza a 12 o 24 mesi.
+            </div>
+          </details>
+          
+          <details class="bg-slate-900/60 border border-slate-800 rounded-xl group cursor-pointer">
+            <summary class="flex items-center justify-between p-4 font-semibold text-white focus:outline-none">
+              Posso aggiornare i contenuti del sito in autonomia?
+              <span class="text-cyan-400 text-lg group-open:rotate-45 transition-transform duration-300">+</span>
+            </summary>
+            <div class="px-4 pb-4 text-[11px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3 mt-1">
+              Sì. Creiamo sempre un pannello di controllo (CMS) facile da usare, in modo che tu o il tuo staff possiate inserire nuovi prodotti, articoli di blog o modificare testi e immagini senza bisogno di saper programmare o di doverci per forza contattare ad ogni piccola modifica.
+            </div>
+          </details>
+        </div>
+
+        <div class="bg-[#050A18] rounded-xl p-5 border border-cyan-500/20 shadow-inner">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center text-cyan-400">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            </div>
+            <h4 class="font-bold text-white text-sm">Non trovi la risposta? Fai una domanda a Daniele e Andrea</h4>
+          </div>
+          
+          <form id="customQuestionForm" onsubmit="event.preventDefault(); handleFaqSubmit();" class="space-y-3 mt-4">
+            <div>
+              <label for="faqEmail" class="block text-[11px] font-semibold text-slate-300 mb-1">La tua Email (per poterti rispondere) *</label>
+              <input type="email" id="faqEmail" required placeholder="mario@esempio.it" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition">
+            </div>
+            <div>
+              <label for="faqQuestion" class="block text-[11px] font-semibold text-slate-300 mb-1">Scrivi la tua domanda qui *</label>
+              <textarea id="faqQuestion" rows="3" required placeholder="Vorrei sapere se è possibile..." class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition resize-none"></textarea>
+            </div>
+            <div class="flex justify-end pt-1">
+              <button type="submit" id="faqSubmitBtn" class="px-5 py-2.5 rounded-xl bg-gradient-brand text-white font-bold text-xs shadow-md hover:shadow-cyan-500/30 transition-all flex items-center gap-2">
+                <span>Invia Domanda</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+            </div>
+            <div id="faqFormFeedback" class="hidden"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="cookieBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-50 p-5 rounded-2xl bg-brand-dark/95 border border-cyan-500/40 shadow-2xl backdrop-blur-xl">
+    <div class="flex items-start gap-3 mb-3">
+      <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center flex-shrink-0">
+        🍪
+      </div>
+      <div>
+        <h4 class="font-heading font-bold text-sm text-white">Informativa sui Cookie &amp; Privacy</h4>
+        <p class="text-slate-300 text-xs mt-1 leading-relaxed">
+          ViGa Web Studio utilizza cookie tecnici essenziali per il funzionamento del sito e per garantire la migliore esperienza di navigazione.
+        </p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-4 pb-3 border-b border-slate-800">
+      <button type="button" class="text-cyan-400 hover:underline open-privacy-btn">Leggi Privacy Policy</button>
+      <span>&bull;</span>
+      <button type="button" class="text-cyan-400 hover:underline open-cookie-btn">Dettagli Cookie</button>
+    </div>
+
+    <div class="flex items-center justify-end gap-2.5">
+      <button type="button" id="rejectCookiesBtn" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition">
+        Solo Essenziali
+      </button>
+      <button type="button" id="acceptCookiesBtn" class="px-4 py-2 rounded-xl bg-gradient-brand text-white text-xs font-bold shadow-md hover:shadow-cyan-500/30 transition">
+        Accetta Tutti
+      </button>
+    </div>
+  </div>
+
+  <div id="privacyModal" class="hidden fixed inset-0 z-[70] overflow-y-auto bg-black/80 backdrop-blur-md p-4 sm:p-6 flex items-center justify-center">
+    <div class="relative w-full max-w-3xl rounded-2xl bg-brand-card border border-cyan-500/30 shadow-2xl max-h-[85vh] flex flex-col text-slate-300">
+      
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="font-heading font-bold text-lg text-white">Privacy Policy</h3>
+          <p class="text-[11px] text-cyan-400">Informativa sul trattamento dei dati personali (Regolamento UE 2016/679 - GDPR)</p>
+        </div>
+        <button type="button" class="close-modal-btn p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs leading-relaxed">
+        <div>
+          <h4 class="font-bold text-white text-sm mb-1">1. Titolari del Trattamento</h4>
+          <p>
+            I titolari del trattamento dei dati raccolti tramite questo sito web sono <strong>Daniele Vino</strong> e <strong>Andrea Gambino</strong>, fondatori di <strong>ViGa Web Studio</strong>.<br>
+            Email di contatto: <a href="mailto:vigawebstudio@gmail.com" class="text-cyan-400 underline">vigawebstudio@gmail.com</a>.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-white text-sm mb-1">2. Tipologia di Dati Raccolti</h4>
+          <p>
+            Raccogliamo unicamente i dati inviati volontariamente dall'utente tramite il form di contatto, la form FAQ, recensioni o i canali di messaggistica.
+          </p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-white text-sm mb-1">3. Finalità del Trattamento</h4>
+          <p>I dati personali vengono trattati esclusivamente per rispondere alle richieste di informazioni o di preventivo inviate dall'utente. I tuoi dati non saranno mai venduti o ceduti a terzi per scopi promozionali.</p>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 flex justify-end">
+        <button type="button" class="close-modal-btn px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition">
+          Ho Capito
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookieModal" class="hidden fixed inset-0 z-[70] overflow-y-auto bg-black/80 backdrop-blur-md p-4 sm:p-6 flex items-center justify-center">
+    <div class="relative w-full max-w-3xl rounded-2xl bg-brand-card border border-cyan-500/30 shadow-2xl max-h-[85vh] flex flex-col text-slate-300">
+      
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="font-heading font-bold text-lg text-white">Cookie Policy</h3>
+          <p class="text-[11px] text-cyan-400">Informazioni sui cookie utilizzati su questo sito</p>
+        </div>
+        <button type="button" class="close-modal-btn p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs leading-relaxed">
+        <div>
+          <h4 class="font-bold text-white text-sm mb-1">Cosa sono i Cookie?</h4>
+          <p>I cookie sono brevi file di testo che i siti visitati inviano al tuo terminale dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla visita successiva.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-white text-sm mb-1">Quali Cookie utilizza ViGa Web Studio?</h4>
+          <div class="space-y-2 mt-2">
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+              <span class="text-white font-semibold block text-xs">1. Cookie Tecnici &amp; Funzionali (Sempre Attivi)</span>
+              <p class="text-slate-400 mt-0.5">Indispensabili per il funzionamento del sito e per salvare la preferenza del consenso cookie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 flex justify-end">
+        <button type="button" class="close-modal-btn px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition">
+          Chiudi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // ============================================
+    // GESTIONE SCROLL REVEAL (ANIMAZIONI)
+    // ============================================
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // ============================================
+    // TASTO TORNA IN CIMA (BACK TO TOP)
+    // ============================================
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.remove('opacity-0', 'invisible');
+        backToTopBtn.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'invisible');
+        backToTopBtn.classList.remove('opacity-100', 'visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ============================================
+    // GESTIONE RECENSIONI E RATING STELLE 
+    // ============================================
+    let currentRating = 5;
+    const starButtons = document.querySelectorAll('.star-btn');
+    const starLabel = document.getElementById('starLabel');
+    const reviewRatingInput = document.getElementById('reviewRatingInput');
+
+    const ratingDescriptions = {
+      1: '1 su 5 (Pessimo)',
+      2: '2 su 5 (Sufficiente)',
+      3: '3 su 5 (Buono)',
+      4: '4 su 5 (Molto Buono)',
+      5: '5 su 5 (Eccellente)'
+    };
+
+    function updateStarsUI(val) {
+      starButtons.forEach(btn => {
+        const starVal = parseInt(btn.getAttribute('data-val'), 10);
+        if (starVal <= val) {
+          btn.classList.add('text-amber-400');
+          btn.classList.remove('text-slate-600');
+        } else {
+          btn.classList.remove('text-amber-400');
+          btn.classList.add('text-slate-600');
+        }
+      });
+      if(starLabel) starLabel.textContent = ratingDescriptions[val];
+    }
+
+    if(starButtons.length > 0) updateStarsUI(5);
+
+    starButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentRating = parseInt(btn.getAttribute('data-val'), 10);
+        reviewRatingInput.value = currentRating;
+        updateStarsUI(currentRating);
+      });
+
+      btn.addEventListener('mouseenter', () => {
+        const hoverVal = parseInt(btn.getAttribute('data-val'), 10);
+        updateStarsUI(hoverVal);
+      });
+    });
+    
+    const starRatingContainer = document.getElementById('starRatingContainer');
+    if(starRatingContainer) {
+        starRatingContainer.addEventListener('mouseleave', () => {
+          updateStarsUI(currentRating);
+        });
+    }
+
+    async function handleReviewSubmit() {
+      const submitBtn = document.getElementById('reviewSubmitBtn');
+      const feedback = document.getElementById('reviewFeedback');
+      const name = document.getElementById('reviewerName').value.trim();
+      const role = document.getElementById('reviewerRole').value.trim() || 'Cliente ViGa';
+      const comment = document.getElementById('reviewerComment').value.trim();
+      const stars = reviewRatingInput.value;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Invio in corso...';
+      feedback.classList.remove('hidden');
+
+      let reviewContent = `NUOVA RECENSIONE RICEVUTA:\n\n`;
+      reviewContent += `Cliente: ${name}\n`;
+      reviewContent += `Ruolo/Azienda: ${role}\n`;
+      reviewContent += `Valutazione: ${stars} su 5 stelle\n\n`;
+      reviewContent += `Commento:\n${comment}\n`;
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "2fd02818-049e-4191-b8b8-d7edb3c620e5",
+            from_name: "ViGa Web Studio - Recensione Cliente",
+            subject: `Nuova recensione da ${name} (${stars}★)`,
+            name: name,
+            message: reviewContent
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          feedback.className = "mt-3 p-3 rounded-xl text-xs text-center bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block";
+          feedback.innerHTML = `<strong>Grazie di cuore ${name}!</strong> La tua valutazione di <strong>${stars}★</strong> è stata inviata a Daniele e Andrea.`;
+          document.getElementById('reviewForm').reset();
+          currentRating = 5;
+          reviewRatingInput.value = 5;
+          updateStarsUI(5);
+        } else {
+          throw new Error('Errore invio recensione');
+        }
+      } catch (e) {
+        feedback.className = "mt-3 p-3 rounded-xl text-xs text-center bg-rose-950/80 border border-rose-500/40 text-rose-300 block";
+        feedback.innerHTML = `Non è stato possibile inviare la recensione in questo momento. Riprova più tardi!`;
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Invia Valutazione';
+    }
+
+    // ============================================
+    // GESTIONE MODALE FAQ E FORM DOMANDE
+    // ============================================
+    const faqModal = document.getElementById('faqModal');
+    
+    document.querySelectorAll('.open-faq-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        faqModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      });
+    });
+
+    document.querySelectorAll('.close-faq-modal').forEach(btn => {
+      btn.addEventListener('click', () => {
+        faqModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      });
+    });
+
+    faqModal.addEventListener('click', (e) => {
+      if (e.target === faqModal) {
+        faqModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+
+    async function handleFaqSubmit() {
+      const submitBtn = document.getElementById('faqSubmitBtn');
+      const feedback = document.getElementById('faqFormFeedback');
+      const email = document.getElementById('faqEmail').value.trim();
+      const question = document.getElementById('faqQuestion').value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Invio in corso...</span>`;
+      feedback.classList.remove('hidden');
+      feedback.className = "mt-3 p-3 rounded-xl text-xs text-center bg-slate-800 text-slate-300 block";
+      feedback.innerHTML = `Invio della domanda...`;
+
+      let emailContent = `NUOVA DOMANDA DALLA SEZIONE FAQ:\n\n`;
+      emailContent += `Email Cliente: ${email}\n\n`;
+      emailContent += `Domanda inviata:\n${question}\n`;
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            access_key: "2fd02818-049e-4191-b8b8-d7edb3c620e5",
+            from_name: "ViGa Web Studio - Domanda FAQ",
+            subject: `Nuova domanda FAQ da ${email}`,
+            message: emailContent,
+            replyto: email
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          feedback.className = "mt-3 p-3 rounded-xl text-xs text-center bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block";
+          feedback.innerHTML = `<strong>Inviato con successo!</strong> Riceverai la nostra risposta all'indirizzo ${email}.`;
+          document.getElementById('customQuestionForm').reset();
+        } else {
+          throw new Error('Errore invio');
+        }
+      } catch (e) {
+        feedback.className = "mt-3 p-3 rounded-xl text-xs text-center bg-rose-950/80 border border-rose-500/40 text-rose-300 block";
+        feedback.innerHTML = `C'è stato un problema. Ti invitiamo a scriverci su WhatsApp o via mail.`;
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<span>Invia Domanda</span><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>`;
+    }
+
+    // ============================================
+    // GESTIONE BANNER COOKIE & MODALI PRIVACY / COOKIE
+    // ============================================
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptCookiesBtn = document.getElementById('acceptCookiesBtn');
+    const rejectCookiesBtn = document.getElementById('rejectCookiesBtn');
+    const cookieSettingsBtn = document.getElementById('cookieSettingsBtn');
+    const privacyModal = document.getElementById('privacyModal');
+    const cookieModal = document.getElementById('cookieModal');
+
+    const consent = localStorage.getItem('viga_cookie_consent');
+    if (!consent) {
+      setTimeout(() => {
+        cookieBanner.classList.remove('hidden');
+      }, 1000);
+    }
+
+    if (acceptCookiesBtn) {
+      acceptCookiesBtn.addEventListener('click', () => {
+        localStorage.setItem('viga_cookie_consent', 'accepted');
+        cookieBanner.classList.add('hidden');
+      });
+    }
+
+    if (rejectCookiesBtn) {
+      rejectCookiesBtn.addEventListener('click', () => {
+        localStorage.setItem('viga_cookie_consent', 'essential_only');
+        cookieBanner.classList.add('hidden');
+      });
+    }
+
+    if (cookieSettingsBtn) {
+      cookieSettingsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        cookieBanner.classList.remove('hidden');
+        cookieBanner.classList.add('ring-2', 'ring-cyan-400');
+        cookieBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(() => {
+          cookieBanner.classList.remove('ring-2', 'ring-cyan-400');
+        }, 1500);
+      });
+    }
+
+    document.querySelectorAll('.open-privacy-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        privacyModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      });
+    });
+
+    document.querySelectorAll('.open-cookie-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        cookieModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      });
+    });
+
+    document.querySelectorAll('.close-modal-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        privacyModal.classList.add('hidden');
+        cookieModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      });
+    });
+
+    [privacyModal, cookieModal].forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    });
+
+    // ============================================
+    // CALCOLO PREVENTIVO LIVE CON COMPLESSITÀ E GARANZIA
+    // ============================================
+    let quoteState = {
+      basePrice: 350,
+      typeName: 'Sito Vetrina',
+      pages: 5,
+      complexityLevel: 2,
+      complexityName: 'Avanzato / Curato',
+      complexityCost: 100,
+      warrantyLevel: 1,
+      warrantyName: '6 Mesi Inclusa',
+      warrantyCost: 0,
+      delivery: '10-30 giorni lavorativi',
+      addons: []
+    };
+
+    let hasAttachedQuote = false;
+
+    const typeButtons = document.querySelectorAll('.quote-type-btn');
+    const pagesRange = document.getElementById('pagesRange');
+    const pagesDisplay = document.getElementById('pagesDisplay');
+    const complexityRange = document.getElementById('complexityRange');
+    const complexityDisplay = document.getElementById('complexityDisplay');
+    const warrantyRange = document.getElementById('warrantyRange');
+    const warrantyDisplay = document.getElementById('warrantyDisplay');
+    const addonCheckboxes = document.querySelectorAll('.quote-addon');
+    const calculatedPriceEl = document.getElementById('calculatedPrice');
+    const summaryPlanEl = document.getElementById('summaryPlan');
+    const summaryPagesEl = document.getElementById('summaryPages');
+    const summaryComplexityEl = document.getElementById('summaryComplexity');
+    const summaryWarrantyEl = document.getElementById('summaryWarranty');
+    const summaryAddonsCountEl = document.getElementById('summaryAddonsCount');
+    const deliveryTimeEl = document.getElementById('deliveryTime');
+    const applyQuoteBtn = document.getElementById('applyQuoteBtn');
+
+    const attachedQuoteBox = document.getElementById('attachedQuoteBox');
+    const attachedPlan = document.getElementById('attachedPlan');
+    const attachedPages = document.getElementById('attachedPages');
+    const attachedComplexity = document.getElementById('attachedComplexity');
+    const attachedPrice = document.getElementById('attachedPrice');
+    const attachedWarranty = document.getElementById('attachedWarranty');
+    const attachedAddons = document.getElementById('attachedAddons');
+    const removeQuoteBtn = document.getElementById('removeQuoteBtn');
+
+    const bookCallBtn = document.getElementById('bookCallBtn');
+
+    typeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        typeButtons.forEach(b => {
+          b.classList.remove('border-cyan-400', 'bg-cyan-500/20');
+          b.classList.add('border-slate-700', 'bg-slate-900/60');
+          b.querySelector('span:first-child').classList.remove('text-cyan-300');
+          b.querySelector('span:first-child').classList.add('text-white');
+        });
+
+        btn.classList.add('border-cyan-400', 'bg-cyan-500/20');
+        btn.classList.remove('border-slate-700', 'bg-slate-900/60');
+        btn.querySelector('span:first-child').classList.add('text-cyan-300');
+        btn.querySelector('span:first-child').classList.remove('text-white');
+
+        quoteState.basePrice = parseInt(btn.getAttribute('data-base'), 10);
+        quoteState.typeName = btn.getAttribute('data-type') === 'vetrina' ? 'Sito Vetrina' : 
+                              btn.getAttribute('data-type') === 'ecommerce' ? 'E-Commerce' : 'Web App / Custom';
+
+        if (quoteState.typeName === 'Sito Vetrina') quoteState.delivery = '10-30 giorni lavorativi';
+        else if (quoteState.typeName === 'E-Commerce') quoteState.delivery = '18-45 giorni lavorativi';
+        else quoteState.delivery = '25-60 giorni lavorativi';
+
+        updateCalculatorUI();
+      });
+    });
+
+    pagesRange.addEventListener('input', (e) => {
+      const p = parseInt(e.target.value, 10);
+      quoteState.pages = p;
+      if (p <= 5) {
+        pagesDisplay.textContent = '1 - 5 Pagine';
+        summaryPagesEl.textContent = 'Fino a 5 pagine';
+      } else if (p <= 12) {
+        pagesDisplay.textContent = `${p} Pagine`;
+        summaryPagesEl.textContent = `${p} pagine circa`;
+      } else {
+        pagesDisplay.textContent = `${p}+ Pagine`;
+        summaryPagesEl.textContent = `Più di 20 pagine`;
+      }
+      updateCalculatorUI();
+    });
+
+    complexityRange.addEventListener('input', (e) => {
+      const level = parseInt(e.target.value, 10);
+      quoteState.complexityLevel = level;
+
+      if (level === 1) {
+        quoteState.complexityName = 'Essenziale (Pulito)';
+        quoteState.complexityCost = 0;
+      } else if (level === 2) {
+        quoteState.complexityName = 'Avanzato / Curato';
+        quoteState.complexityCost = 100;
+      } else {
+        quoteState.complexityName = 'Luxury / Effetti 3D';
+        quoteState.complexityCost = 200;
+      }
+
+      complexityDisplay.textContent = quoteState.complexityName;
+      summaryComplexityEl.textContent = quoteState.complexityName;
+      updateCalculatorUI();
+    });
+
+    warrantyRange.addEventListener('input', (e) => {
+      const wLevel = parseInt(e.target.value, 10);
+      quoteState.warrantyLevel = wLevel;
+
+      if (wLevel === 1) {
+        quoteState.warrantyName = '6 Mesi (Inclusa Gratis)';
+        quoteState.warrantyCost = 0;
+        summaryWarrantyEl.className = "font-semibold text-emerald-400";
+        warrantyDisplay.className = "font-mono font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-0.5 rounded text-sm border border-emerald-500/30";
+      } else if (wLevel === 2) {
+        quoteState.warrantyName = '12 Mesi (+€120)';
+        quoteState.warrantyCost = 120;
+        summaryWarrantyEl.className = "font-semibold text-cyan-300";
+        warrantyDisplay.className = "font-mono font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded text-sm border border-cyan-500/30";
+      } else {
+        quoteState.warrantyName = '24 Mesi (+€220)';
+        quoteState.warrantyCost = 220;
+        summaryWarrantyEl.className = "font-semibold text-cyan-300";
+        warrantyDisplay.className = "font-mono font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded text-sm border border-cyan-500/30";
+      }
+
+      warrantyDisplay.textContent = quoteState.warrantyName;
+      summaryWarrantyEl.textContent = quoteState.warrantyName;
+      updateCalculatorUI();
+    });
+
+    addonCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        updateCalculatorUI();
+      });
+    });
+
+    function updateCalculatorUI() {
+      let total = quoteState.basePrice;
+
+      if (quoteState.pages > 5) {
+        const extraPages = quoteState.pages - 5;
+        total += extraPages * 25;
+      }
+
+      total += quoteState.complexityCost;
+      total += quoteState.warrantyCost;
+
+      let activeAddons = [];
+      addonCheckboxes.forEach(cb => {
+        if (cb.checked) {
+          total += parseInt(cb.getAttribute('data-price'), 10);
+          activeAddons.push(cb.getAttribute('data-name'));
+        }
+      });
+
+      quoteState.addons = activeAddons;
+
+      calculatedPriceEl.textContent = total;
+      summaryPlanEl.textContent = quoteState.typeName;
+      deliveryTimeEl.textContent = quoteState.delivery;
+      
+      if (activeAddons.length === 0) {
+        summaryAddonsCountEl.textContent = 'Nessuno';
+      } else {
+        summaryAddonsCountEl.textContent = `${activeAddons.length} selezionati`;
+      }
+
+      if (hasAttachedQuote) {
+        updateAttachedBoxUI(total);
+      }
+    }
+
+    function updateAttachedBoxUI(total) {
+      attachedPlan.textContent = quoteState.typeName;
+      attachedPages.textContent = quoteState.pages <= 5 ? '1 - 5 Pagine' : `${quoteState.pages} Pagine`;
+      attachedComplexity.textContent = quoteState.complexityName;
+      attachedPrice.textContent = `€ ${total}`;
+      attachedWarranty.textContent = quoteState.warrantyName;
+      attachedAddons.textContent = quoteState.addons.length > 0 ? quoteState.addons.join(', ') : 'Nessuno';
+    }
+
+    applyQuoteBtn.addEventListener('click', () => {
+      const typeSelect = document.getElementById('projectTypeSelect');
+
+      if (quoteState.typeName === 'Sito Vetrina') typeSelect.value = 'vetrina';
+      else if (quoteState.typeName === 'E-Commerce') typeSelect.value = 'ecommerce';
+      else typeSelect.value = 'custom';
+
+      hasAttachedQuote = true;
+      updateAttachedBoxUI(calculatedPriceEl.textContent);
+      attachedQuoteBox.classList.remove('hidden');
+
+      attachedQuoteBox.classList.add('ring-2', 'ring-cyan-400');
+      setTimeout(() => {
+        attachedQuoteBox.classList.remove('ring-2', 'ring-cyan-400');
+      }, 1500);
+
+      attachedQuoteBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    bookCallBtn.addEventListener('click', () => {
+      const typeSelect = document.getElementById('projectTypeSelect');
+      typeSelect.value = 'call';
+
+      document.getElementById('contatti').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('userName').focus();
+    });
+
+    removeQuoteBtn.addEventListener('click', () => {
+      hasAttachedQuote = false;
+      attachedQuoteBox.classList.add('hidden');
+    });
+
+    // ============================================
+    // INVIO FORM REALE CONTATTI
+    // ============================================
+    async function handleFormSubmit() {
+      const submitBtn = document.getElementById('submitBtn');
+      const origamiPlane = document.getElementById('origamiPlane');
+      const sentBadge = document.getElementById('sentBadgeBtn');
+      const feedback = document.getElementById('formFeedback');
+
+      const name = document.getElementById('userName').value.trim();
+      const company = document.getElementById('userCompany').value.trim() || 'Non specificata';
+      const email = document.getElementById('userEmail').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const typeSelect = document.getElementById('projectTypeSelect');
+      const typeText = typeSelect.options[typeSelect.selectedIndex].text;
+      const message = document.getElementById('userMessage').value.trim();
+
+      submitBtn.disabled = true;
+
+      submitBtn.classList.add('btn-fold');
+
+      setTimeout(() => {
+        origamiPlane.classList.remove('hidden');
+        origamiPlane.classList.add('plane-takeoff');
+      }, 220);
+
+      let emailContent = `NUOVA RICHIESTA DAL SITO WEB:\n\n`;
+      emailContent += `Nome e Cognome: ${name}\n`;
+      emailContent += `Azienda: ${company}\n`;
+      emailContent += `Email cliente: ${email}\n`;
+      emailContent += `Telefono/WhatsApp: ${phone}\n`;
+      emailContent += `Tipologia progetto: ${typeText}\n\n`;
+      emailContent += `Messaggio del cliente:\n${message}\n\n`;
+
+      if (hasAttachedQuote) {
+        emailContent += `------------------------------------\n`;
+        emailContent += `DETTAGLIO PREVENTIVO CALCOLATO ONLINE:\n`;
+        emailContent += `------------------------------------\n`;
+        emailContent += `Tipo Sito: ${quoteState.typeName}\n`;
+        emailContent += `Volume Pagine: ${quoteState.pages <= 5 ? '1-5 Pagine' : quoteState.pages + ' Pagine'}\n`;
+        emailContent += `Complessità Grafica: ${quoteState.complexityName}\n`;
+        emailContent += `Garanzia: ${quoteState.warrantyName}\n`;
+        emailContent += `Extra Selezionati: ${quoteState.addons.length > 0 ? quoteState.addons.join(', ') : 'Nessuno'}\n`;
+        emailContent += `PREZZO STIMATO DA: € ${calculatedPriceEl.textContent}\n`;
+        emailContent += `Tempi Consegna Stimati: ${quoteState.delivery}\n`;
+      }
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "2fd02818-049e-4191-b8b8-d7edb3c620e5",
+            from_name: "ViGa Web Studio - Nuovo Contatto",
+            subject: `Nuova richiesta da ${name} [${typeText}]`,
+            name: name,
+            email: email,
+            phone: phone,
+            company: company,
+            project_type: typeText,
+            message: emailContent,
+            replyto: email
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          setTimeout(() => {
+            origamiPlane.classList.add('hidden');
+            origamiPlane.classList.remove('plane-takeoff');
+
+            sentBadge.classList.remove('hidden');
+            sentBadge.classList.add('btn-sent-appear');
+
+            feedback.className = "p-4 rounded-xl text-xs text-center bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 block mt-4 fade-scale-in";
+            feedback.innerHTML = `
+              <strong>Grazie mille ${name}!</strong><br>
+              La tua richiesta è stata inviata con successo a <strong>vigawebstudio@gmail.com</strong>.<br>
+              Daniele Vino e Andrea Gambino ti risponderanno al più presto!
+            `;
+
+            document.getElementById('contactForm').reset();
+            hasAttachedQuote = false;
+            attachedQuoteBox.classList.add('hidden');
+          }, 950);
+        } else {
+          throw new Error("Errore invio");
+        }
+
+      } catch (err) {
+        setTimeout(() => {
+          origamiPlane.classList.add('hidden');
+          origamiPlane.classList.remove('plane-takeoff');
+          submitBtn.classList.remove('btn-fold');
+          submitBtn.disabled = false;
+
+          feedback.className = "p-4 rounded-xl text-xs text-center bg-rose-950/80 border border-rose-500/40 text-rose-300 block mt-4";
+          feedback.innerHTML = `Si è verificato un errore durante l'invio. Puoi contattarci direttamente su WhatsApp o via email a vigawebstudio@gmail.com.`;
+        }, 950);
+      }
+
+      setTimeout(() => {
+        sentBadge.classList.add('hidden');
+        sentBadge.classList.remove('btn-sent-appear');
+        submitBtn.classList.remove('btn-fold');
+        submitBtn.disabled = false;
+      }, 4500);
+    }
+  </script>
+</body>
+</html>
